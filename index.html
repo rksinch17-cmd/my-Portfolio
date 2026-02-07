@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sinchana R | Portfolio</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- AOS Animations -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+<style>
+/* ===== GLOBAL ===== */
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+html { scroll-behavior:smooth; }
+body { background:#0f0f1e; color:#fff; overflow-x:hidden; cursor:crosshair; }
+
+/* ===== PARTICLE CANVAS ===== */
+#particles-js { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; }
+
+/* ===== NAVBAR ===== */
+nav {
+  position:fixed; top:0; left:0; width:100%; z-index:1000;
+  display:flex; justify-content:space-between; align-items:center; padding:15px 8%;
+  background:rgba(15,15,30,0.7); backdrop-filter:blur(10px); transition:0.3s;
+}
+nav.scrolled { background:rgba(15,15,30,0.95); }
+nav h2 { color:#9b5de5; font-size:1.6rem; font-weight:700; }
+nav a { margin-left:20px; text-decoration:none; color:#fff; font-weight:500; position:relative; transition:0.3s; }
+nav a:hover, nav a.active { color:#9b5de5; }
+nav a.active::after { content:''; position:absolute; bottom:-5px; left:0; width:100%; height:2px; background:#9b5de5; border-radius:2px; }
+.linkedin-btn { background:#0A66C2; color:#fff; padding:8px 16px; border-radius:20px; font-size:0.85rem; transition:0.3s; }
+.linkedin-btn:hover { background:#084a8c; }
+
+/* ===== HERO ===== */
+.hero {
+  height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; position:relative; z-index:1;
+}
+.hero img {
+  width: 250px;   /* Bigger photo */
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #9b5de5;
+  box-shadow: 0 0 30px #9b5de5, 0 0 60px rgba(155,93,229,0.3);
+  margin-bottom: 20px;
+  transition: transform 0.5s, box-shadow 0.5s;
+}
+.hero img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 50px #9b5de5, 0 0 80px rgba(155,93,229,0.5);
+}
+.hero h1 { font-size:3rem; font-weight:700; margin-bottom:15px; color:#fff; text-shadow:0 0 15px #9b5de5; animation:fadeInUp 1s ease forwards; opacity:0; }
+.hero .typing { font-size:1.3rem; opacity:0.9; margin-bottom:10px; animation:fadeInUp 1.3s ease forwards; opacity:0; color:#fff; text-shadow:0 0 8px #6a11cb; }
+.hero span { font-size:1rem; opacity:0.8; animation:fadeInUp 1.5s ease forwards; opacity:0; color:#ccc; }
+
+/* ===== SECTION HEADINGS ===== */
+section { padding:100px 8%; position:relative; z-index:1; }
+section h2 { text-align:center; font-size:2.5rem; margin-bottom:60px; color:#9b5de5; text-shadow:0 0 5px #9b5de5; }
+
+/* ===== ABOUT ===== */
+.about { background:#12122b; text-align:center; }
+.about p { max-width:750px; margin:auto; font-size:1.1rem; line-height:1.8; color:#ccc; }
+
+/* ===== SKILLS ===== */
+.skills { display:flex; justify-content:center; flex-wrap:wrap; gap:30px; }
+.skill {
+  background: rgba(155,93,229,0.05); padding:20px; border-radius:25px;
+  width:220px; text-align:center; box-shadow:0 8px 25px rgba(155,93,229,0.2); transition:transform 0.3s ease, box-shadow 0.3s ease;
+}
+.skill:hover { transform:translateY(-10px); box-shadow:0 15px 40px rgba(155,93,229,0.4); }
+.skill h4 { margin-bottom:15px; color:#9b5de5; text-shadow:0 0 8px #6a11cb; }
+.skill .bar { background:#333; border-radius:10px; height:10px; overflow:hidden; }
+.skill .bar span { display:block; height:100%; width:0; background:#9b5de5; border-radius:10px; animation:fillBar 1.5s forwards; }
+
+/* ===== PROJECTS ===== */
+.projects { display:flex; flex-wrap:wrap; justify-content:center; gap:30px; }
+.project-card {
+  background:#1a1a3d; padding:25px; border-radius:20px; width:350px;
+  box-shadow:0 15px 50px rgba(155,93,229,0.3); transition:transform 0.3s, box-shadow 0.3s;
+}
+.project-card:hover { transform:translateY(-15px); box-shadow:0 20px 70px rgba(155,93,229,0.5); }
+.project-card h3 { color:#9b5de5; margin-bottom:12px; text-shadow:0 0 6px #6a11cb; }
+.project-card p { margin-bottom:12px; line-height:1.6; color:#ccc; }
+.project-links a { text-decoration:none; padding:10px 18px; background:#9b5de5; color:#fff; border-radius:20px; font-size:0.9rem; display:inline-block; margin-right:8px; transition:0.3s; }
+.project-links a:hover { background:#6a11cb; }
+
+/* ===== EDUCATION ===== */
+.education { text-align:center; font-size:1.1rem; color:#ccc; }
+
+/* ===== CONTACT ===== */
+.contact { text-align:center; }
+.contact a { display:inline-block; margin:12px; font-size:2rem; color:#9b5de5; transition:transform 0.3s,color 0.3s; }
+.contact a:hover { transform:scale(1.25); color:#6a11cb; }
+
+/* ===== FOOTER ===== */
+footer { text-align:center; padding:25px; background:#0f0f1e; color:#777; }
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp { 0%{opacity:0; transform:translateY(30px);} 100%{opacity:1; transform:translateY(0);} }
+@keyframes fillBar { to { width: var(--width); } }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width:768px){
+  section{padding:60px 5%;}
+  .hero h1{font-size:2.4rem;}
+  .hero img{width:250px;height:250px;}
+  .projects{flex-direction:column;align-items:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- PARTICLE CANVAS -->
+<div id="particles-js"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <h2>Sinchana</h2>
+  <div>
+    <a href="#about" class="nav-link">About</a>
+    <a href="#skills" class="nav-link">Skills</a>
+    <a href="#projects" class="nav-link">Projects</a>
+    <a href="#education" class="nav-link">Education</a>
+    <a href="#contact" class="nav-link">Contact</a>
+    <a href="https://www.linkedin.com/in/sinchana-r-58a0583ab/" target="_blank" class="linkedin-btn">LinkedIn</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <img src="pic1.jpg.jpeg" alt="Sinchana R Photo">
+  <h1>Sinchana R</h1>
+  <div class="typing" id="typing"></div>
+  <span>Passionate About Innovation</span>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="about" data-aos="fade-up">
+  <h2>About Me</h2>
+  <p>Computer Science & Business Systems student at Maharaja Institute of Technology, Mysore. With a Keen interest in Computer Science and Business Systems. Familiar with Java and Python, eager to learn new technologies and motivated to develop Practical Skills to contribute to real World Projects.</p>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" data-aos="fade-up">
+  <h2>Skills</h2>
+  <div class="skills">
+    <div class="skill"><h4>Java</h4><div class="bar"><span style="--width:60%"></span></div></div>
+    <div class="skill"><h4>Python</h4><div class="bar"><span style="--width:50%"></span></div></div>
+    <div class="skill"><h4>OOP Concepts</h4><div class="bar"><span style="--width:50%"></span></div></div>
+    <div class="skill"><h4>Problem Solving</h4><div class="bar"><span style="--width:60%"></span></div></div>
+    <div class="skill"><h4>Data Structures</h4><div class="bar"><span style="--width:50%"></span></div></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" data-aos="fade-up">
+  <h2>Projects</h2>
+  <div class="projects">
+    <div class="project-card">
+      <h3>ATM Machine Access System</h3>
+      <p>A console-based application simulating ATM operations like PIN authentication, balance enquiry, deposit, and withdrawal.</p>
+      <p><strong>Tech Stack:</strong> Java </p>
+      <div class="project-links">
+        <a href="https://github.com/rksinch17-cmd/Project.git" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="education" data-aos="fade-up">
+  <h2>Education</h2>
+  <p><strong>Bachelor of Engineering in Computer Science & Business Systems</strong><br>Maharaja Institute of Technology, Mysore<br>6th Semester</p>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact" data-aos="fade-up">
+  <h2>Contact</h2>
+  <a href="tel:+919980971308"><i class="fas fa-phone"></i></a>
+  <a href="mailto:rksinch.17@gmail.com"><i class="fas fa-envelope"></i></a>
+  <a href="https://github.com/rksinch17-cmd" target="_blank"><i class="fab fa-github"></i></a>
+  <a href="https://www.linkedin.com/in/sinchana-r-58a0583ab/" target="_blank"><i class="fab fa-linkedin"></i></a>
+</section>
+
+<footer>
+  <p>© 2026 Sinchana R | Portfolio</p>
+</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+// PARTICLES JS CONFIG
+particlesJS("particles-js", {
+  "particles": {
+    "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+    "color": { "value": "#9b5de5" },
+    "shape": { "type": "circle" },
+    "opacity": { "value": 0.8, "random": true },
+    "size": { "value": 3, "random": true },
+    "line_linked": { "enable": true, "distance": 120, "color": "#9b5de5", "opacity":0.5, "width":1 },
+    "move": { "enable": true, "speed":3, "direction":"none", "random":true, "straight":false }
+  },
+  "interactivity": {
+    "detect_on":"canvas",
+    "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" } },
+    "modes": { "repulse": { "distance": 100 }, "push": { "particles_nb": 4 } }
+  },
+  "retina_detect": true
+});
+
+// AOS INIT
+AOS.init({ duration:1200, once:true });
+
+// NAVBAR SCROLL
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll',()=>{ window.scrollY>50 ? navbar.classList.add('scrolled') : navbar.classList.remove('scrolled'); });
+
+// TYPING EFFECT
+const typingText=["Computer Science and business systems Student","Bridging Technology and Business","Tech + Business Enthusiast"];
+let i=0,j=0,current="",del=false;
+const typingElem=document.getElementById('typing');
+function type(){
+  if(i>=typingText.length)i=0;
+  let full=typingText[i];
+  if(!del){ current=full.substring(0,j+1); j++; }
+  else { current=full.substring(0,j-1); j--; }
+  typingElem.textContent=current;
+  if(!del && j===full.length){ del=true; setTimeout(type,1500); return; }
+  if(del && j===0){ del=false; i++; }
+  setTimeout(type,del?50:120);
+} type();
+</script>
+</body>
+</html>
+
+
